@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get "/articles", to: "articles#index"
+  get "/account", to: "account#index"
 end
