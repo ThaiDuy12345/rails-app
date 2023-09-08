@@ -10,15 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_07_091632) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_08_104820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", id: :integer, default: nil, force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.string "address", limit: 100
-    t.integer "age"
-    t.string "phone", limit: 10
+    t.integer "age", null: false
+    t.string "email", null: false
+    t.string "password", null: false
+    t.text "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.bigint "product_id"
+    t.index ["account_id"], name: "index_orders_on_account_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "price", default: "0.0", null: false
+    t.integer "quantity", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "orders", "accounts"
+  add_foreign_key "orders", "products"
 end
