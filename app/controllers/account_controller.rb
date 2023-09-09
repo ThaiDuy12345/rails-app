@@ -12,7 +12,13 @@ class AccountController < ApplicationController
   end
 
   def create
-    accountModel = Account.new(params)
+    accountModel = Account.new({
+      :name => params[:name],
+      :age => params[:age],
+      :address => params[:address],
+      :email => params[:email],
+      :password => params[:password]
+    })
     accountModel.save
     render :json => accountModel
   end
