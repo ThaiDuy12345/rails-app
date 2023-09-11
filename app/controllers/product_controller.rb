@@ -1,12 +1,12 @@
 class ProductController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def get_all
+  def index
     productModel = Product.all
     render :json => productModel
   end
 
-  def get_by_id 
+  def show 
     productModel = Product.find(params[:id])
     render :json => productModel
   end
@@ -33,7 +33,7 @@ class ProductController < ApplicationController
     render :json => productModel
   end
 
-  def delete
+  def destroy
     productModel = Product.find(params[:id])
     productModel.delete
     render :json => { :status => :success ,:message => "!" }

@@ -1,13 +1,13 @@
 class OrderController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def get_all
+  def index
     orderModel = Order.all.to_json(:include => [:account, :product])
     puts orderModel
     render :json => orderModel
   end
 
-  def get_by_id 
+  def show 
     orderModel = Order.find(params[:id]).to_json(:include => [:account, :product])
     render :json => orderModel
   end
@@ -24,13 +24,13 @@ class OrderController < ApplicationController
   def update
     orderModel = Order.find(params[:id])
     orderModel.update({
-      :account_id=> params[:account_id],
+      :account_id => params[:account_id],
       :product_id => params[:product_id]
     }).to_json(:include => [:account, :product])
     render :json => orderModel
   end
 
-  def delete
+  def destroy
     orderModel = Order.find(params[:id])
     orderModel.delete
     render :json => { :status => :success ,:message => "Successfully Deleted!!" }

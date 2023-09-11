@@ -1,12 +1,12 @@
 class AccountController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def get_all
+  def index
     accountModel = Account.all
     render :json => accountModel
   end
 
-  def get_by_id 
+  def show 
     accountModel = Account.find(params[:id])
     render :json => accountModel
   end
@@ -35,7 +35,7 @@ class AccountController < ApplicationController
     render :json => accountModel
   end
 
-  def delete
+  def destroy
     accountModel = Account.find(params[:id])
     accountModel.delete
     render :json => { :status => :success ,:message => "!" }
